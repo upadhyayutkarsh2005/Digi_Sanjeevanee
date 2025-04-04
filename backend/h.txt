@@ -1,0 +1,2 @@
+genai.configure(api_key="")
+uvicorn main:app --reload
