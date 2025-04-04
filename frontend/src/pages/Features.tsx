@@ -24,8 +24,9 @@ const features = [
   },
   {
     icon: HeartPulse,
-    title: "Health Monitoring",
-    description: "Track vital signs, chronic conditions, and wellness metrics over time. Our system alerts you to concerning changes and helps you maintain optimal health through personalized recommendations.",
+    title: "Consult a Doctor",
+    description: "Connect with qualified healthcare professionals for virtual consultations. Get expert advice, prescriptions, and follow-up care from the comfort of your home.",
+    
   },
   {
     icon: Database,
@@ -102,6 +103,21 @@ const Features = () => {
     className="bg-sanjeevani-primary text-white hover:bg-sanjeevani-secondary"
   >
     Analyze Report
+  </Button>
+) : feature.title === "Consult a Doctor" ? (
+  <Button
+    onClick={() => navigate("/doctors")}
+    className="bg-sanjeevani-primary text-white hover:bg-sanjeevani-secondary"
+  >
+    Book Appointment
+  </Button>
+) : feature.title === "Care Coordination" ? (
+  <Button variant="link" className="text-sanjeevani-primary p-0 h-auto font-semibold">
+    Learn more
+  </Button>
+) : feature.title === "Wellness Analytics" ? (
+  <Button variant="link" className="text-sanjeevani-primary p-0 h-auto font-semibold">
+    Learn more
   </Button>
 ) : (
   <Button variant="link" className="text-sanjeevani-primary p-0 h-auto font-semibold">

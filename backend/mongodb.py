@@ -14,7 +14,7 @@ class Database:
         self.appointments_collection = None
         self.medical_records_collection = None
         self.medicine_recommendations_collection = None
-        self.medical_reports_collection = None  # ✅ Add this
+        self.medical_reports_collection = None
 
     async def connect(self):
         self.client = AsyncIOMotorClient(MONGO_URI)
@@ -24,18 +24,21 @@ class Database:
         self.appointments_collection = self.db["appointments"]
         self.medical_records_collection = self.db["medical_records"]
         self.medicine_recommendations_collection = self.db["medicine_recommendations"]
-        self.medical_reports_collection = self.db["medical_reports"]  # ✅ Add this too
+        self.medical_reports_collection = self.db["medical_reports"]
 
         await self.users_collection.create_index("email", unique=True)
 
     async def close(self):
-        self.client.close()
+        if self.client:
+            self.client.close()
 
-# Create a singleton database instance
+# Singleton instance
 database = Database()
 
-users_collection = database.users_collection
-appointments_collection = database.appointments_collection
-medical_records_collection = database.medical_records_collection
-medicine_recommendations_collection = database.medicine_recommendations_collection
-medical_reports_collection = database.medical_reports_collection  # ✅ Use this
+# Access collections via database instance after `await database.connect()`
+# Optional (if you need global access after initialization)
+users_collection = lambda: database.users_collection
+appointments_collection = lambda: database.appointments_collection
+medical_records_collection = lambda: database.medical_records_collection
+medicine_recommendations_collection = lambda: database.medicine_recommendations_collection
+medical_reports_collection = lambda: database.medical_reports_collection

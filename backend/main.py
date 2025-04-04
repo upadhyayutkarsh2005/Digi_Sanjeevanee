@@ -136,7 +136,7 @@ async def nearest_hospitals(address: str, radius: int = Query(5000, description=
     return {"address": address, "latitude": lat, "longitude": lon, "hospitals": hospitals}
 
 # ✅ Include Additional Routes
-app.include_router(doctor_router, prefix="/doctor", tags=["Doctor Consultation"])
+app.include_router(doctor_router, prefix="/api", tags=["Doctor Consultation"])
 app.include_router(medicine_router, prefix="/medicine", tags=["Medicine Recommendation"])
 app.include_router(report_analyzer_router, prefix="/report")
 app.add_middleware(

@@ -4,8 +4,7 @@ import google.generativeai as genai
 import uuid
 from mongodb import appointments_collection  # Import MongoDB collection
 
-# Configure Gemini API
-genai.configure(api_key="AIzaSyB6WidYWiBGAVAjWzXrML8nSsj7AQ1CEWY") # Replace with actual key
+
 
 router = APIRouter()
 
@@ -32,7 +31,7 @@ async def book_appointment(appointment: Appointment):
     }
 
     # Store in MongoDB
-    appointments_collection.insert_one(appointment_data)
+    await appointments_collection().insert_one(appointment_data)
     
     return {"message": "Appointment booked successfully", "appointment": appointment_data}
 
@@ -54,7 +53,7 @@ class ChatInput(BaseModel):
 @router.post("/chatbot")
 async def medical_chatbot(chat_input: ChatInput):
     model = genai.GenerativeModel("gemini-2.0-flash")
-    prompt = f"Provide a medical response for the query: {chat_input.query}"
+    prompt = f"You are a helpful and professional medical assistant. Answer the following query in a friendly and informative way:\n\n{chat_input.query}"
     
     response = model.generate_content(prompt)
     
