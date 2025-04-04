@@ -1,15 +1,20 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ Make sure this is imported
 import NavBar from '@/components/layout/NavBar';
 import Footer from '@/components/layout/Footer';
-import { Brain, Stethoscope, HeartPulse, Database, Shield, Share2, BellRing, Bot, BarChart } from 'lucide-react';
+import {
+  Hospital, Stethoscope, HeartPulse, Database, Shield, Share2,
+  BellRing, Bot, BarChart
+} from 'lucide-react';
 import { Button } from "@/components/ui/button";
+
 
 const features = [
   {
-    icon: Brain,
-    title: "AI Symptom Analysis",
-    description: "Our advanced AI analyzes your symptoms to provide accurate health insights and potential diagnoses. The system learns from millions of medical records and stays updated with the latest medical research.",
+    icon: Hospital,
+    title: "Find your nearest hospital",
+    description: "Locate hospitals near your current location with ease. Our platform uses advanced geolocation technology to identify the nearest healthcare facilities, providing you with directions, contact details, and other essential information to ensure quick access to medical care when you need it most.",
   },
   {
     icon: Stethoscope,
@@ -54,10 +59,12 @@ const features = [
 ];
 
 const Features = () => {
+  const navigate = useNavigate(); // ✅ INSIDE the component
+
   return (
     <div className="min-h-screen flex flex-col">
       <NavBar />
-      
+
       <main className="flex-grow">
         <section className="py-16 bg-sanjeevani-light">
           <div className="container mx-auto px-4">
@@ -69,46 +76,39 @@ const Features = () => {
             </div>
           </div>
         </section>
-        
+
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {features.map((feature, idx) => (
-                <div key={idx} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                <div key={idx} className="bg-white p-6 rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-300">
                   <div className="w-12 h-12 bg-sanjeevani-primary/10 rounded-full flex items-center justify-center mb-4">
                     <feature.icon className="text-sanjeevani-primary" size={24} />
                   </div>
                   <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
                   <p className="text-gray-600 mb-4">{feature.description}</p>
-                  <Button variant="link" className="text-sanjeevani-primary p-0 h-auto font-semibold">
-                    Learn more
-                  </Button>
+
+                  {feature.title === "Find your nearest hospital" ? (
+                    <Button
+                      onClick={() => navigate("/hospital-locator")}
+                      className="bg-sanjeevani-primary text-white hover:bg-sanjeevani-secondary"
+                    >
+                      Locate Hospitals
+                    </Button>
+                  ) : (
+                    <Button variant="link" className="text-sanjeevani-primary p-0 h-auto font-semibold">
+                      Learn more
+                    </Button>
+                  )}
                 </div>
               ))}
             </div>
           </div>
         </section>
-        
-        <section className="py-16 bg-sanjeevani-primary/5">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-sanjeevani-dark mb-4">Ready to Experience Digi_Sanjeevani?</h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Join thousands of users who are taking control of their health with our AI-powered platform.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <Button size="lg" className="bg-sanjeevani-primary hover:bg-sanjeevani-secondary text-white">
-                  Get Started
-                </Button>
-                <Button size="lg" variant="outline" className="border-sanjeevani-primary text-sanjeevani-primary hover:bg-sanjeevani-primary hover:text-white">
-                  View Demo
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+
+        {/* ...rest of your sections */}
       </main>
-      
+
       <Footer />
     </div>
   );

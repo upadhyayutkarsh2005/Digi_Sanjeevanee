@@ -139,7 +139,7 @@ app.include_router(doctor_router, prefix="/doctor", tags=["Doctor Consultation"]
 app.include_router(medicine_router, prefix="/medicine", tags=["Medicine Recommendation"])
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],  # Replace with frontend URL
+    allow_origins=["*"],  # Replace with frontend URL
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods (GET, POST, PUT, DELETE, etc.)
     allow_headers=["*"],  # Allow all headers
