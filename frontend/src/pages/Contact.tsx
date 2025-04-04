@@ -96,7 +96,7 @@ const Contact = () => {
                   Mon-Fri from 8am to 5pm.
                 </p>
                 <a href="tel:+1234567890" className="text-sanjeevani-primary mt-2">
-                  +1 (234) 567-890
+                  +91-8303769534S
                 </a>
               </CardContent>
             </Card>
@@ -111,7 +111,7 @@ const Contact = () => {
                   Come say hello at our office.
                 </p>
                 <span className="text-sanjeevani-primary mt-2">
-                  100 Health Avenue, Medical District
+                  Jankipuram Crossing, Lucknow, India
                 </span>
               </CardContent>
             </Card>

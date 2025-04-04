@@ -14,6 +14,7 @@ from mongodb import database
 from reportanalyser import router as report_analyzer_router
 from symptom_ai import analyze_symptoms_with_ai
 from fastapi.middleware.cors import CORSMiddleware
+from chatbot import get_health_response
 
 # Initialize FastAPI
 app = FastAPI()
@@ -142,6 +143,18 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+class ChatRequest(BaseModel):
+    message: str
+    language: str  # "english" or "hindi"
+
+@app.post("/chatbot/")
+async def chatbot_response(data: ChatRequest):
+    try:
+        reply = get_health_response(data.message, data.language)
+        return {"reply": reply}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # ✅ Run FastAPI app
 if __name__ == "__main__":

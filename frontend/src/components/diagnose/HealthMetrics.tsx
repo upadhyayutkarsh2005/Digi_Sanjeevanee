@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity, ThermometerSnowflake, Heart, Stethoscope } from 'lucide-react';
@@ -72,6 +71,11 @@ const HealthMetrics = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Development Note */}
+          <p className="text-center text-sm text-gray-400 mt-6">
+            🚧 This section is under development. More advanced health tracking features coming soon!
+          </p>
         </div>
       </div>
     </section>
