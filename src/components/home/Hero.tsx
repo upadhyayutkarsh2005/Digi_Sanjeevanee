@@ -5,8 +5,26 @@ import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <div className="container mx-auto px-4 py-16 flex flex-col-reverse md:flex-row md:items-center">
-      <div className="md:w-1/2 mt-8 md:mt-0 md:pr-10">
+    <div className="container mx-auto px-4 py-16 flex flex-col md:flex-row md:items-center">
+      
+      
+     {/* Video Section on the Left */}
+      <div className="md:w-1/2 flex justify-center mb-8 md:mb-0">
+        <video
+          className="w-full h-[450px] max-w-lg object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="public/doctor.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+
+      {/* Text Section */}
+      <div className="md:w-1/2 md:pl-10">
         <h1 className="text-4xl md:text-5xl font-bold text-sanjeevani-dark">
           Digi_Sanjeevani
         </h1>
@@ -37,14 +55,6 @@ const Hero = () => {
             Learn More
           </Button>
         </div>
-      </div>
-      
-      <div className="md:w-1/2 flex justify-center">
-        <img 
-          src="/Users/Utkarsh/Digi_Sanjeevani 2/public/3a43badc-29ef-4176-b940-94f5d78552b0.jpg"
-          alt="Healthcare professionals" 
-          className="w-full max-w-lg"
-        />
       </div>
     </div>
   );

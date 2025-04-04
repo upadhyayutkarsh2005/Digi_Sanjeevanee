@@ -11,10 +11,13 @@ import Features from "./pages/Features";
 import LoginForm from "./pages/login"; // ✅
 import NotFound from "./pages/NotFound";
 import Register from "./pages/register";
+import ChatBot from './components/ChatBot'; // ✅
 
 const queryClient = new QueryClient();
 
 const App = () => (
+<>
+  <ChatBot />
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
@@ -27,13 +30,12 @@ const App = () => (
           <Route path="/features" element={<Features />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="register" element={<Register/>} />
-          
-        
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
+</>
 );
 
 export default App;
