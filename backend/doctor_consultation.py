@@ -4,7 +4,8 @@ import google.generativeai as genai
 import uuid
 from mongodb import appointments_collection  # Import MongoDB collection
 
-
+# Configure Gemini API
+genai.configure(api_key="AIzaSyB6WidYWiBGAVAjWzXrML8nSsj7AQ1CEWY") # Replace with actual key
 
 router = APIRouter()
 

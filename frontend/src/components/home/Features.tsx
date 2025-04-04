@@ -1,34 +1,45 @@
-
 import React from 'react';
 import { Brain, Stethoscope, HeartPulse } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
-const featuresData = [
-  {
-    id: 1,
-    title: "AI Symptom Analysis",
-    description: "Advanced AI algorithms analyze your symptoms to provide potential diagnoses and health insights.",
-    icon: Brain,
-    buttonText: "Try Diagnosis"
-  },
-  {
-    id: 2,
-    title: "Medical Consultation",
-    description: "Connect with healthcare professionals for virtual consultations and personalized care.",
-    icon: Stethoscope,
-    buttonText: "Connect Now"
-  },
-  {
-    id: 3,
-    title: "Health Monitoring",
-    description: "Track vital signs and health metrics for proactive health management and early intervention.",
-    icon: HeartPulse,
-    buttonText: "Monitor Health"
-  }
-];
+import { useNavigate } from "react-router-dom";
 
 const Features = () => {
+  const navigate = useNavigate();
+
+  const featuresData = [
+    {
+      id: 1,
+      title: "AI Symptom Analysis",
+      description: "Advanced AI algorithms analyze your symptoms to provide potential diagnoses and health insights.",
+      icon: Brain,
+      buttonText: "Try Diagnosis",
+      action: () => navigate("/symptom-checker")
+    },
+    {
+      id: 2,
+      title: "Medical Consultation",
+      description: "Connect with healthcare professionals for virtual consultations and personalized care.",
+      icon: Stethoscope,
+      buttonText: "Connect Now",
+      action: () => navigate("/doctors")
+    },
+    {
+      id: 3,
+      title: "Health Monitoring",
+      description: "Track vital signs and health metrics for proactive health management and early intervention.",
+      icon: HeartPulse,
+      buttonText: "Monitor Health",
+      action: () => console.log("Monitor Health clicked")
+    }
+  ];
+
   return (
     <section className="py-16 bg-sanjeevani-light">
       <div className="container mx-auto px-4">
@@ -38,7 +49,7 @@ const Features = () => {
             Innovative AI-powered solutions designed to provide accurate diagnoses and improve your healthcare experience.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {featuresData.map((feature) => (
             <Card key={feature.id} className="border-gray-200 hover:shadow-lg transition-shadow duration-300">
@@ -50,7 +61,10 @@ const Features = () => {
                 <CardDescription>{feature.description}</CardDescription>
               </CardHeader>
               <CardFooter>
-                <Button className="w-full bg-sanjeevani-primary hover:bg-sanjeevani-secondary text-white">
+                <Button
+                  className="w-full bg-sanjeevani-primary hover:bg-sanjeevani-secondary text-white"
+                  onClick={feature.action}
+                >
                   {feature.buttonText}
                 </Button>
               </CardFooter>

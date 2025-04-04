@@ -30,8 +30,8 @@ const features = [
   },
   {
     icon: Database,
-    title: "Medical Records",
-    description: "Securely store and access your medical history, test results, medications, and appointments in one place. Share information with healthcare providers when needed.",
+    title: "Symptom Checker",
+    description: "Use our AI-powered symptom checker to understand potential health issues. Input your symptoms and receive a list of possible conditions, along with recommendations for next steps.",
   },
   {
     icon: Shield,
@@ -111,9 +111,12 @@ const Features = () => {
   >
     Book Appointment
   </Button>
-) : feature.title === "Care Coordination" ? (
-  <Button variant="link" className="text-sanjeevani-primary p-0 h-auto font-semibold">
-    Learn more
+) : feature.title === "Symptom Checker" ? (
+  <Button
+    onClick={() => navigate("/symptom-checker")}
+    className="bg-sanjeevani-primary text-white hover:bg-sanjeevani-secondary"
+  >
+    Check Symptoms
   </Button>
 ) : feature.title === "Wellness Analytics" ? (
   <Button variant="link" className="text-sanjeevani-primary p-0 h-auto font-semibold">

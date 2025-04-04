@@ -6,16 +6,14 @@ import json
 from PIL import Image
 import pytesseract
 from pydantic import BaseModel
-from symptom_ai import get_disease_prediction
-from hospital_locator import get_nearby_hospitals, get_coordinates  # Corrected import
+from hospital_locator import get_nearby_hospitals, get_coordinates
 from doctor_consultation import router as doctor_router
 from medicine_recommendation import router as medicine_router
 from auth import auth_router
-from mongodb import database  
-from auth import auth_router# Import the database instance
-from fastapi.middleware.cors import CORSMiddleware
+from mongodb import database
 from reportanalyser import router as report_analyzer_router
-
+from symptom_ai import analyze_symptoms_with_ai
+from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize FastAPI
 app = FastAPI()
@@ -31,15 +29,12 @@ if not GEMINI_API_KEY:
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-
 @app.on_event("startup")
 async def startup_db():
-    """Connect to MongoDB when the app starts."""
     await database.connect()
 
 @app.on_event("shutdown")
 async def shutdown_db():
-    """Close MongoDB connection when the app stops."""
     await database.close()
 
 # Include authentication routes
@@ -86,16 +81,14 @@ def get_structured_data(extracted_text):
 
     Ensure the response follows this exact JSON structure.
     """
-    
     model = genai.GenerativeModel("gemini-2.0-flash")
     response = model.generate_content(prompt)
 
-    # ✅ Handle potential missing response
     if not response or not response.candidates:
         return {"error": "No valid response from Gemini AI"}
 
     try:
-        return json.loads(response.candidates[0].text)  # ✅ Ensure JSON format
+        return json.loads(response.candidates[0].text)
     except json.JSONDecodeError:
         return {"error": "Failed to parse AI response. Ensure Gemini returns valid JSON."}
 
@@ -103,7 +96,7 @@ def get_structured_data(extracted_text):
 @app.post("/analyze/report")
 async def analyze_report(file: UploadFile = File(...)):
     file_bytes = await file.read()
-    
+
     if file.filename.endswith(".pdf"):
         extracted_text = extract_text_from_pdf(file_bytes)
     elif file.filename.endswith((".png", ".jpg", ".jpeg")):
@@ -112,26 +105,27 @@ async def analyze_report(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="Unsupported file format. Please upload a PDF or image.")
 
     structured_data = get_structured_data(extracted_text)
-
     return {"filename": file.filename, "structured_report": structured_data}
 
 # ✅ Symptom-based AI Prediction
 class SymptomInput(BaseModel):
     symptoms: list[str]
 
-@app.post("/predict-disease")
-async def predict_disease(symptoms: SymptomInput):
-    prediction = get_disease_prediction(symptoms.symptoms)  # ✅ Ensure correct list format
-    return {"input_symptoms": symptoms.symptoms, "predictions": prediction}
+@app.post("/analyze-symptoms/")
+async def analyze_symptoms(data: SymptomInput):
+    try:
+        result = analyze_symptoms_with_ai(data.symptoms)
+        return result
+    except ValueError as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # ✅ Find Nearest Hospitals
 @app.get("/nearest-hospitals")
 async def nearest_hospitals(address: str, radius: int = Query(5000, description="Search radius in meters")):
     lat, lon = get_coordinates(address)
-    
     if lat is None or lon is None:
         raise HTTPException(status_code=400, detail="Invalid address or location not found")
-    
+
     hospitals = get_nearby_hospitals(lat, lon, radius)
     return {"address": address, "latitude": lat, "longitude": lon, "hospitals": hospitals}
 
@@ -139,13 +133,16 @@ async def nearest_hospitals(address: str, radius: int = Query(5000, description=
 app.include_router(doctor_router, prefix="/api", tags=["Doctor Consultation"])
 app.include_router(medicine_router, prefix="/medicine", tags=["Medicine Recommendation"])
 app.include_router(report_analyzer_router, prefix="/report")
+
+# ✅ Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace with frontend URL
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods (GET, POST, PUT, DELETE, etc.)
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 # ✅ Run FastAPI app
 if __name__ == "__main__":
     import uvicorn
