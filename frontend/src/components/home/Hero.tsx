@@ -1,9 +1,11 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="container mx-auto px-4 py-16 flex flex-col-reverse md:flex-row md:items-center">
       <div className="md:w-1/2 mt-8 md:mt-0 md:pr-10">
@@ -30,10 +32,18 @@ const Hero = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-          <Button className="bg-sanjeevani-primary hover:bg-sanjeevani-secondary text-white flex items-center">
+          <Button
+            className="bg-sanjeevani-primary hover:bg-sanjeevani-secondary text-white flex items-center"
+            onClick={() => navigate('/features')}
+          >
             Get Started <ArrowRight size={16} className="ml-2" />
           </Button>
-          <Button variant="outline" className="border-sanjeevani-primary text-sanjeevani-primary hover:bg-sanjeevani-primary hover:text-white">
+
+          <Button
+            variant="outline"
+            className="border-sanjeevani-primary text-sanjeevani-primary hover:bg-sanjeevani-primary hover:text-white"
+            onClick={() => navigate('/about')}
+          >
             Learn More
           </Button>
         </div>

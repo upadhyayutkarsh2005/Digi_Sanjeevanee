@@ -149,11 +149,22 @@ class ChatRequest(BaseModel):
     language: str  # "english" or "hindi"
 
 @app.post("/chatbot/")
-async def chatbot_response(data: ChatRequest):
+def chatbot_response(req: ChatRequest):
     try:
-        reply = get_health_response(data.message, data.language)
-        return {"reply": reply}
+        system_instruction = f"""
+        You are a highly intelligent and kind health assistant.
+        Your job is to only answer health-related queries.
+        You must not answer questions unrelated to health.
+        You must respond in {req.language}.
+        """
+
+        model = genai.GenerativeModel("gemini-1.5-flash")  # ✅ Correct name
+        chat = model.start_chat(history=[])
+        response = chat.send_message(system_instruction + "\n" + req.message)
+        return {"response": response.text.strip()}
+
     except Exception as e:
+        print("Error:", str(e))  # 👈 add this line to see actual error
         raise HTTPException(status_code=500, detail=str(e))
 
 # ✅ Run FastAPI app

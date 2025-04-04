@@ -14,6 +14,7 @@ import Hospitallocator from "./pages/Hospitallocator";
 import ReportAnalyzer from "./pages/Reportanalyser";
 import DoctorList from "./pages/Doctorbooking";
 import SymptomChecker from "./pages/Symptomanalyser";
+import HealthChatbot from './components/home/HealthChatbot'
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/symptom-checker" element={<SymptomChecker />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <HealthChatbot />
       </TooltipProvider>
     </QueryClientProvider>
   </BrowserRouter>
