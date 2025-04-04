@@ -14,6 +14,7 @@ from auth import auth_router
 from mongodb import database  
 from auth import auth_router# Import the database instance
 from fastapi.middleware.cors import CORSMiddleware
+from reportanalyser import router as report_analyzer_router
 
 
 # Initialize FastAPI
@@ -137,6 +138,7 @@ async def nearest_hospitals(address: str, radius: int = Query(5000, description=
 # ✅ Include Additional Routes
 app.include_router(doctor_router, prefix="/doctor", tags=["Doctor Consultation"])
 app.include_router(medicine_router, prefix="/medicine", tags=["Medicine Recommendation"])
+app.include_router(report_analyzer_router, prefix="/report")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Replace with frontend URL

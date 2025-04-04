@@ -18,8 +18,9 @@ const features = [
   },
   {
     icon: Stethoscope,
-    title: "Virtual Consultations",
-    description: "Connect with healthcare professionals through secure video consultations. Get expert medical advice without leaving your home, and have prescriptions sent directly to your pharmacy.",
+    title: "Medical Report Analysis",
+    description: "Upload your medical reports and receive instant analysis. Our AI-driven system interprets lab results, imaging studies, and other medical documents, providing you with clear insights and recommendations for follow-up care.",
+    
   },
   {
     icon: HeartPulse,
@@ -89,17 +90,24 @@ const Features = () => {
                   <p className="text-gray-600 mb-4">{feature.description}</p>
 
                   {feature.title === "Find your nearest hospital" ? (
-                    <Button
-                      onClick={() => navigate("/hospital-locator")}
-                      className="bg-sanjeevani-primary text-white hover:bg-sanjeevani-secondary"
-                    >
-                      Locate Hospitals
-                    </Button>
-                  ) : (
-                    <Button variant="link" className="text-sanjeevani-primary p-0 h-auto font-semibold">
-                      Learn more
-                    </Button>
-                  )}
+  <Button
+    onClick={() => navigate("/hospital-locator")}
+    className="bg-sanjeevani-primary text-white hover:bg-sanjeevani-secondary"
+  >
+    Locate Hospitals
+  </Button>
+) : feature.title === "Medical Report Analysis" ? (
+  <Button
+    onClick={() => navigate("/analyzer")}
+    className="bg-sanjeevani-primary text-white hover:bg-sanjeevani-secondary"
+  >
+    Analyze Report
+  </Button>
+) : (
+  <Button variant="link" className="text-sanjeevani-primary p-0 h-auto font-semibold">
+    Learn more
+  </Button>
+)}
                 </div>
               ))}
             </div>

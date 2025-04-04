@@ -11,6 +11,7 @@ import LoginForm from "./pages/login";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/register";
 import Hospitallocator from "./pages/Hospitallocator";
+import ReportAnalyzer from "./pages/Reportanalyser";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<Register />} />
           <Route path="/hospital-locator" element={<Hospitallocator />} />
+          <Route path="/analyzer" element={<ReportAnalyzer />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </TooltipProvider>
