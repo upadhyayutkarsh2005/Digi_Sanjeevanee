@@ -99,7 +99,7 @@ uvicorn main:app --reload
 cd frontend
 npm install
 npm run dev
-
+```bash
 ✨ Future Enhancements
 	•	User dashboard for health history tracking
 	•	AI-driven medicine reminders
