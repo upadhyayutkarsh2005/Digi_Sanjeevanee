@@ -87,7 +87,7 @@ Digi_Sanjeevanee/
 
 ### ⚙️ Backend Setup
 
-```bash
+
 cd backend
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
