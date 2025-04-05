@@ -58,26 +58,22 @@ const About = () => {
               <h2 className="text-3xl font-bold text-sanjeevani-dark mb-8 text-center">Our Story</h2>
               
               <div className="prose prose-lg max-w-none">
-                <p>
-                  Digi_Sanjeevani was founded in 2023 by a team of healthcare professionals and AI experts who recognized the potential of artificial intelligence to revolutionize healthcare delivery and improve patient outcomes.
-                </p>
-                
-                <p>
-                  Our team noticed that many people around the world face barriers to accessing quality healthcare, whether due to geographic location, cost, or other factors. We believed that AI could help bridge this gap by providing initial assessments, health monitoring, and medical information.
-                </p>
-                
-                <p>
-                  We've developed advanced algorithms that analyze symptoms, medical history, and health metrics to provide accurate health insights. Our AI is continuously learning and improving through feedback from medical professionals and real-world data.
-                </p>
-                
-                <p>
-                  While we're proud of our technology, we recognize that AI cannot replace human healthcare providers. That's why we've designed our platform to complement traditional healthcare, helping users make informed decisions about when to seek professional medical care.
-                </p>
-                
-                <p>
-                  Today, Digi_Sanjeevani is helping thousands of users monitor their health, understand their symptoms, and connect with healthcare providers when needed. We're committed to continuing our mission of making healthcare more accessible, efficient, and personalized through the responsible use of AI technology.
-                </p>
-              </div>
+  <p>
+    Digi_Sanjeevani was born from a vision to revolutionize healthcare through the power of artificial intelligence and smart technology.
+  </p>
+
+  <p>
+    In an age where time is precious and access to quality medical care remains a challenge for many, Digi_Sanjeevani bridges the gap by offering AI-powered medical report analysis, real-time symptom prediction, and instant doctor consultations—all from the convenience of your device.
+  </p>
+
+  <p>
+    With features like nearby hospital discovery, air quality insights, and personalized health recommendations, we aim to make proactive, accessible, and intelligent healthcare a reality for everyone.
+  </p>
+
+  <p>
+    Digi_Sanjeevani isn’t just an application; it’s your digital health companion, empowering you to take charge of your well-being with confidence and clarity.
+  </p>
+</div>
             </div>
           </div>
         </section>
