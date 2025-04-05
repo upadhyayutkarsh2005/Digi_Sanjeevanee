@@ -87,7 +87,7 @@ Digi_Sanjeevanee/
 
 ### ⚙️ Backend Setup
 
-
+```bash
 cd backend
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
@@ -99,7 +99,7 @@ uvicorn main:app --reload
 cd frontend
 npm install
 npm run dev
-```bash
+
 ✨ Future Enhancements
 	•	User dashboard for health history tracking
 	•	AI-driven medicine reminders
